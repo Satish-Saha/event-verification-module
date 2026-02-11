@@ -33,7 +33,7 @@ async function verifyEmail(email) {
     const resultTemplate = {
         email: email,
         result: "unknown",
-        resultcode: 6,
+        resultcode: 3,
         subresult: "initial_state",
         domain: null,
         mxRecords: [],
@@ -57,7 +57,7 @@ async function verifyEmail(email) {
     if (!isValidSyntax(email)) {
         return updateResult({
             result: "invalid",
-            resultcode: 3,
+            resultcode: 6,
             subresult: "invalid_syntax",
             error: "Email syntax is invalid"
         });
@@ -71,7 +71,7 @@ async function verifyEmail(email) {
     if (suggestion) {
         return updateResult({
             result: "invalid",
-            resultcode: 3,
+            resultcode: 6,
             subresult: "typo_detected",
             didyoumean: suggestion,
             error: `Possible typo detected. Did you mean ${suggestion}?`
@@ -89,7 +89,7 @@ async function verifyEmail(email) {
         if (mxRecords.length === 0) {
             return updateResult({
                 result: "invalid",
-                resultcode: 3,
+                resultcode: 6,
                 subresult: "domain_has_no_mx",
                 error: "No MX records found for domain"
             });
@@ -97,7 +97,7 @@ async function verifyEmail(email) {
     } catch (err) {
         return updateResult({
             result: "invalid",
-            resultcode: 3,
+            resultcode: 6,
             subresult: "domain_resolution_failed",
             error: err.message
         });
@@ -118,26 +118,26 @@ async function verifyEmail(email) {
         } else if (smtpResponse.status === 550) {
             return updateResult({
                 result: "invalid",
-                resultcode: 3,
+                resultcode: 6,
                 subresult: "mailbox_does_not_exist"
             });
         } else if (smtpResponse.status === 450) {
             return updateResult({
                 result: "unknown",
-                resultcode: 6,
+                resultcode: 3,
                 subresult: "greylisted"
             });
         } else if (smtpResponse.status === 'timeout') {
             return updateResult({
                 result: "unknown",
-                resultcode: 6,
+                resultcode: 3,
                 subresult: "connection_error",
                 error: "Connection timed out"
             });
         } else {
             return updateResult({
                 result: "unknown",
-                resultcode: 6,
+                resultcode: 3,
                 subresult: "connection_error",
                 error: smtpResponse.message
             });
@@ -145,7 +145,7 @@ async function verifyEmail(email) {
     } catch (err) {
         return updateResult({
             result: "unknown",
-            resultcode: 6,
+            resultcode: 3,
             subresult: "connection_error",
             error: err.message
         });

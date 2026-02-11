@@ -1,0 +1,26 @@
+{
+  "name": "email-verifier",
+  "version": "1.0.0",
+  "description": "Email Verification Module using SMTP with error handling and typo suggestion.",
+  "main": "src/verifyEmail.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node src/verifyEmail.js"
+  },
+  "keywords": [
+    "email",
+    "verification",
+    "smtp",
+    "typo",
+    "validation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fast-levenshtein": "^3.0.0",
+    "smtp-client": "^0.3.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
